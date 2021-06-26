@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {DtoResponse} from "./NewsService"
-
-import './App.css';
 import NewsService from "./NewsService"
 
 function App() {
   const [data, setData] = useState<DtoResponse[]>([]);
-  const newsService = new NewsService()
 
   useEffect(() => {
+    const newsService = new NewsService()
     const fetchData = async () => {
       const result: DtoResponse[] = await newsService.getData()
       setData(result);
