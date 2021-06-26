@@ -1,25 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import {DtoResponse} from "./NewsService"
+
 import './App.css';
+import NewsService from "./NewsService"
 
 function App() {
+  const [data, setData] = useState<DtoResponse[]>([]);
+  const newsService = new NewsService()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result: DtoResponse[] = await newsService.getData()
+ 
+      setData(result);
+    };
+ 
+    fetchData();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ul>
+      {
+        data.map(item => (
+          <li key={item.objectId}>
+            {item.title}
+          </li>
+        ))
+      }
+  </ul>
   );
 }
 
