@@ -11,7 +11,6 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       const result: DtoResponse[] = await newsService.getData()
- 
       setData(result);
     };
  
