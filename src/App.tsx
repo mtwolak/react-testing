@@ -17,7 +17,7 @@ function App() {
     fetchData();
   }, []);
 
-  return (
+  return data.length > 0 ? (
     <ul>
       {
         data.map(item => (
@@ -27,7 +27,7 @@ function App() {
         ))
       }
   </ul>
-  );
+  ) : (<div>No results!</div>);
 }
 
 export default App;

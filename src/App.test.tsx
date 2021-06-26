@@ -6,7 +6,7 @@ import { act } from 'react-dom/test-utils';
 
 jest.mock('./NewsService')
 
-test('renders learn react link', async () => {
+test('renders response', async () => {
   //@ts-ignore
   NewsService.mockImplementation(() => {
     return {
@@ -25,4 +25,21 @@ test('renders learn react link', async () => {
   // then
   expect(screen.getByText(/Redux - easy/i)).toBeInTheDocument()
   expect(screen.getByText(/Do not use Redux!/i)).toBeInTheDocument()
+});
+
+test('renders an error', async () => {
+  //@ts-ignore
+  NewsService.mockImplementation(() => {
+    return {
+      getData: (): DtoResponse[] => []
+    }
+  })
+
+  // when
+  await act(async () => {
+    render(<App />)
+  })
+
+  // then
+  expect(screen.getByText(/No results!/i)).toBeInTheDocument()
 });
